@@ -10,6 +10,10 @@ pub fn run_editor(output: &mut Stdout) -> std::io::Result<()> {
         match input {
             Event::Key(key) => match key.code {
                 EXIT_EVENT => break,
+                KeyCode::Char(c) => {
+                    write!(output, "{c}\r")?;
+                    Write::flush(output)?
+                },
                 _ => ()
             },
             _ => ()
