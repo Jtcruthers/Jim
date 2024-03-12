@@ -1,3 +1,14 @@
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(author = "Justin Carruthers", about = "Justin Vim")]
+struct Args {
+    // File to edit
+    filename: String
+}
+
 fn main() {
-    println!("Hello, world!");
+    let args = Args::parse();
+
+    ()
 }
