@@ -1,8 +1,8 @@
+mod editor;
+
 use std::{
     fs,
-    io::{stdout, Stdout, Write},
-    thread,
-    time,
+    io::stdout,
 };
 use clap::Parser;
 use crossterm::terminal::{enable_raw_mode, disable_raw_mode};
@@ -14,15 +14,6 @@ struct Args {
     filename: String
 }
 
-fn run_editor(output: &mut Stdout) -> std::io::Result<()> {
-
-    thread::sleep(time::Duration::from_secs(2));
-    write!(output, "Hey\r\n")?;
-    write!(output, "Bye\r\n")?;
-    Ok(())
-}
-
-
 fn main() -> std::io::Result<()> {
     let args = Args::parse();
     let _ = fs::read(&args.filename).expect("Cant read file");
@@ -31,7 +22,7 @@ fn main() -> std::io::Result<()> {
 
     enable_raw_mode()?;
 
-    match run_editor(&mut stdout) {
+    match editor::run_editor(&mut stdout) {
         Result::Err(_) => disable_raw_mode()?,
         _ => ()
     }
